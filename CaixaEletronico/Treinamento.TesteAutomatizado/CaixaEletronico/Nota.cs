@@ -1,6 +1,6 @@
 ﻿namespace Caixa.Eletronico
 {
-    public class Notas
+    public class Nota
     {
         public int Valor { get; set; }
     }
