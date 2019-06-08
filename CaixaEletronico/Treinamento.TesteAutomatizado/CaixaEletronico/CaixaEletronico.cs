@@ -67,8 +67,6 @@ namespace Caixa.Eletronico
                 }
             }
            
-            //if (valorDoSaque == 30)
-              //  return new List<Nota> { new Nota { Valor = 10 }, new Nota { Valor = 20 } };
 
             return notaRetorno;
 

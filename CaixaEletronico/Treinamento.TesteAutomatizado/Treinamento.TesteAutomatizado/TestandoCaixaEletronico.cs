@@ -73,6 +73,35 @@ namespace Treinamento.TesteAutomatizado
 		}
 
         [TestMethod]
+        public void QuandoSacar60Reais_DeveEntregar1NotaDe50e1De10()
+        {
+            var caixaEletronico = new CaixaEletronico();
+
+            var notas = caixaEletronico.Sacar(60);
+
+            Assert.IsNotNull(notas);
+            Assert.AreEqual(2, notas.Count);
+            Assert.AreEqual(1, notas.Count(n => n.Valor == 50));
+            Assert.AreEqual(1, notas.Count(n => n.Valor == 10));
+        }
+
+        [TestMethod]
+        public void QuandoSacar180Reais_DeveEntregar1NotaDe100e1De50e1De20e1De10()
+        {
+            var caixaEletronico = new CaixaEletronico();
+
+            var notas = caixaEletronico.Sacar(180);
+
+            Assert.IsNotNull(notas);
+            Assert.AreEqual(4, notas.Count);
+            Assert.AreEqual(1, notas.Count(n => n.Valor == 100));
+            Assert.AreEqual(1, notas.Count(n => n.Valor == 50));
+            Assert.AreEqual(1, notas.Count(n => n.Valor == 20));
+            Assert.AreEqual(1, notas.Count(n => n.Valor == 10));
+        }
+    }
+
+        [TestMethod]
         public void QuandoSacarValor70reais_DeveEntregar1de20e1de50()
         {
             var caixaEletronico = new CaixaEletronico();
