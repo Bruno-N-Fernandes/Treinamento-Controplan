@@ -59,5 +59,16 @@ namespace Treinamento.TesteAutomatizado
 
         }
 
+        [TestMethod]
+        public void QuandoSacarValor70reais_DeveEntregar1de20e1de50()
+        {
+            var caixaEletronico = new CaixaEletronico();
+
+            var notas = caixaEletronico.SacarNotas(70);
+
+            Assert.IsNotNull(notas);
+            Assert.AreEqual(2, notas.Count, $"Nota {70}");
+
+        }
     }
 }
