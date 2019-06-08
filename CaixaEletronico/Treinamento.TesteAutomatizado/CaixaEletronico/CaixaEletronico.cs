@@ -22,14 +22,25 @@ namespace Caixa.Eletronico
 
         public List<Nota> Sacar(int valorDoSaque)
         {
-            if(valorDoSaque == 30)
-                return new List<Nota> { new Nota { Valor = 10 }, new Nota { Valor = 20 } };
-            if (valorDoSaque < MenorNotaDisponivel.Valor)
-                return new List<Nota>();
-            var teste = valorDoSaque % MenorNotaDisponivel.Valor;
-            if(teste != 0)
-                return new List<Nota>();
-            return new List<Nota> { new Nota { Valor = valorDoSaque } };
+			var valorRestante = valorDoSaque;
+			var notasRetornadas = new List<Nota>();
+			var notasElegiveis = NotasDiponiveis.Where(x => x.Valor <= valorRestante);
+			var maiorValor = notasElegiveis.Any()? notasElegiveis.Max(x => x.Valor) : MenorNotaDisponivel.Valor;
+
+			while ((valorRestante > 0) && (valorRestante >= maiorValor))
+			{
+				var nota = NotasDiponiveis.FirstOrDefault(n => n.Valor == maiorValor);
+				notasRetornadas.Add(nota);
+				valorRestante -= nota.Valor;
+
+				if (valorRestante > 0)
+				{
+					notasElegiveis = NotasDiponiveis.Where(x => x.Valor <= valorRestante);
+					maiorValor = notasElegiveis.Any() ? notasElegiveis.Max(x => x.Valor) : 0;
+				}
+			}
+
+			return notasRetornadas;
         }
     }
 
