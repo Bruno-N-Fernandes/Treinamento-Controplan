@@ -105,12 +105,13 @@ namespace Treinamento.TesteAutomatizado
         public void QuandoSacarValor70reais_DeveEntregar1de20e1de50()
         {
             var caixaEletronico = new CaixaEletronico();
+            int valor = 180;
+            var notas = caixaEletronico.SacarNotas(valor);
 
-            var notas = caixaEletronico.SacarNotas(70);
+            int totalValorNotas = notas.Sum(x => x.Valor * x.QtdNotas);
 
             Assert.IsNotNull(notas);
-            Assert.AreEqual(2, notas.Count, $"Nota {70}");
-
+            Assert.IsTrue(totalValorNotas == valor, $"Nota {valor}");
         }
     }
 }
