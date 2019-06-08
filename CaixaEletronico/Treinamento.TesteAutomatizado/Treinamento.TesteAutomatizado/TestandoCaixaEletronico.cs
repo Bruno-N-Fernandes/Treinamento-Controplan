@@ -18,6 +18,7 @@ namespace Treinamento.TesteAutomatizado
             Assert.AreEqual(1, notas.Count);
             Assert.AreEqual(100, notas[0].Valor);
         }
+
         [TestMethod]
         public void QuandoSacar50Reais_DeveEntregar1Notade50()
         {
@@ -30,34 +31,46 @@ namespace Treinamento.TesteAutomatizado
             Assert.AreEqual(50, notas[0].Valor);
         }
 
-        [TestMethod]
-        public void QuandoSacar30Reais_DeveEntregar2Notas1De10e1De20()
-        {
-            var caixaEletronico = new CaixaEletronico();
+		[TestMethod]
+		public void QuandoSacar30Reais_DeveEntregar2Notas1De10e1De20()
+		{
+			var caixaEletronico = new CaixaEletronico();
 
-            var notas = caixaEletronico.Sacar(30);
+			var notas = caixaEletronico.Sacar(30);
 
-            Assert.IsNotNull(notas);
-            Assert.AreEqual(2, notas.Count);
-            Assert.IsTrue(notas.Any(n =>n.Valor == 10));
-            Assert.IsTrue(notas.Any(n =>n.Valor == 20));
-        }
+			Assert.IsNotNull(notas);
+			Assert.AreEqual(2, notas.Count);
+			Assert.IsTrue(notas.Any(n => n.Valor == 10));
+			Assert.IsTrue(notas.Any(n => n.Valor == 20));
+		}
 
-        [TestMethod]
-        public void QuandoSacarValorMenorQueAMenorNotaDisponivel_NaoDeveEntregarNotas()
-        {
-            var caixaEletronico = new CaixaEletronico();
-            var menorNota = caixaEletronico.MenorNotaDisponivel;
+		[TestMethod]
+		public void QuandoSacar40Reais_DeveEntregar2Notas2De20()
+		{
+			var caixaEletronico = new CaixaEletronico();
 
-            for (int i = 0; i < menorNota.Valor; i++)
-            {
-                var notas = caixaEletronico.Sacar(i);
+			var notas = caixaEletronico.Sacar(40);
 
-                Assert.IsNotNull(notas);
-                Assert.AreEqual(0, notas.Count, $"Nota {i}");
-            }
+			Assert.IsNotNull(notas);
+			Assert.AreEqual(2, notas.Count);
+			Assert.AreEqual(2, notas.Count(n => n.Valor == 20));
+		}
 
-        }
+		[TestMethod]
+		public void QuandoSacarValorMenorQueAMenorNotaDisponivel_NaoDeveEntregarNotas()
+		{
+			var caixaEletronico = new CaixaEletronico();
+			var menorNota = caixaEletronico.MenorNotaDisponivel;
+
+			for (int i = 0; i < menorNota.Valor; i++)
+			{
+				var notas = caixaEletronico.Sacar(i);
+
+				Assert.IsNotNull(notas);
+				Assert.AreEqual(0, notas.Count, $"Nota {i}");
+			}
+
+		}
 
         [TestMethod]
         public void QuandoSacarValor70reais_DeveEntregar1de20e1de50()
